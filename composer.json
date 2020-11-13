@@ -1,5 +1,5 @@
 {
-  "name": "unb-libraries/unb-lib-saml",
+  "name": "unb-libraries/saml-features",
   "description": "Add UNB Libraries login features to SAML-Authenticated sites",
   "type": "drupal-module",
   "require": {
