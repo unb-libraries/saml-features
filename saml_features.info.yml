@@ -1,0 +1,8 @@
+name: 'UNB Libraries Saml'
+description: 'Extra features re: UNB Libraries Saml authentication'
+package: 'UNB Libraries'
+type: module
+core: 8.x
+configure: saml_features.admin_settings_form
+dependencies:
+  - samlauth:samlauth (>=8.x-3.0-alpha2)
