@@ -1,9 +1,9 @@
 <?php
 /**
  * @file
- * Contains Drupal\unb_lib_saml\Form\SettingsForm.
+ * Contains Drupal\saml_features\Form\SettingsForm.
  */
-namespace Drupal\unb_lib_saml\Form;
+namespace Drupal\saml_features\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
@@ -13,7 +13,7 @@ class SettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'unb_lib_saml.adminsettings',
+      'saml_features.adminsettings',
     ];
   }
 
@@ -21,14 +21,14 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'unb_lib_saml_settings_form';
+    return 'saml_features_settings_form';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('unb_lib_saml.adminsettings');
+    $config = $this->config('saml_features.adminsettings');
 
     $form['exclude_stu'] = [
       '#type' => 'checkbox',
@@ -45,7 +45,7 @@ class SettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
 
-    $this->config('unb_lib_saml.adminsettings')
+    $this->config('saml_features.adminsettings')
       ->set('exclude_stu', $form_state->getValue('exclude_stu'))
       ->save();
   }
