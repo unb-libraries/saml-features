@@ -11,15 +11,15 @@ Custom support module to add UNB Libraries login form UI customizations
 - Replaces Drupal core login form error message references with Saml-based versions
 
 ## Installation Note
-- Please increase the weight of the `saml_features` **module** array element to **10** in your Drupal repo's
+- Please increase the weight of the `saml_features` **module** array element to **11** in your Drupal repo's
  `config-yml/core.extension.yml` configuration file:
 
   ```
   module:
      ...
      externalauth: 10
-     saml_features: 10
      views: 10
+     saml_features: 11
      ...
   ```
 
