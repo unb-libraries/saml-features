@@ -6,9 +6,10 @@ Custom support module to add UNB Libraries login form UI customizations
 ## Features
 - Adds URL Alias `/login` to Saml Authentications `/saml_login` route
 - Adds an alert to the Drupal core user login form that links to the Saml login route
-- Supports UNB & optional STU login field description strings
-  - STU reference can be toggled at `/admin/config/saml_features/adminsettings`
 - Replaces Drupal core login form error message references with Saml-based versions
+- Administration settings may be configured at `/admin/config/saml_features/adminsettings`
+  - STU references in the login text may be toggled on/off
+  - Email/password field editing may enabled/disabled on the user profile form
 
 ## Installation Note
 - Please increase the weight of the `saml_features` **module** array element to **11** in your Drupal repo's
