@@ -24,9 +24,13 @@ Custom support module to add UNB Libraries login form UI customizations
      ...
   ```
 
-## Prerequisite
+## Prerequisites
 - This module depends on SAML Authentication module, 8.x-3.0-alpha2 version or better:
   - https://www.drupal.org/project/samlauth
+- This module displays alerts in the **System Messages** block.
+  Please ensure this block is placed/enabled in a region within your active theme's
+   **Block layout**
+   - Preferred placement is in the **Main content** region *above* the **Main page content** block.
 
 ## License
 - saml_features is licensed under the MIT License:
