@@ -45,7 +45,7 @@ function saml_features_form_user_login_form_alter(&$form, FormStateInterface $fo
   $config = \Drupal::config('saml_features.adminsettings');
   $institution_txt = $config->get('exclude_stu') ? 'UNB' : 'UNB/STU';
 
-  $form['name']['#description'] = t("Enter your $site_name username <em>(non-$institution_txt patrons)</em>");
+  $form['name']['#description'] = t("Enter your $site_name username <em>(non-$institution_txt accounts)</em>");
   if (!\Drupal::currentUser()->isAuthenticated()) {
     $messenger = \Drupal::messenger();
     $messenger->addMessage(
