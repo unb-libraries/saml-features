@@ -49,7 +49,7 @@ function saml_features_form_user_login_form_alter(&$form, FormStateInterface $fo
   if (!\Drupal::currentUser()->isAuthenticated()) {
     $messenger = \Drupal::messenger();
     $messenger->addMessage(
-      t("$institution_txt patrons must sign in using <strong>@auth_link</strong>.",
+      t("<strong>$institution_txt accounts</strong> must sign in using <strong>@auth_link</strong>.",
         [
           '@auth_link' => Link::fromTextAndUrl(
             t('Secure Services Login'),
