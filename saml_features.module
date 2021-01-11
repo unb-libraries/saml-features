@@ -47,13 +47,16 @@ function saml_features_form_user_login_form_alter(&$form, FormStateInterface $fo
 
   $form['name']['#description'] = t("Enter your $site_name username <em>(non-$institution_txt accounts)</em>");
   if (!\Drupal::currentUser()->isAuthenticated()) {
+    $options = [
+      'query' => \Drupal::request()->query->all(),
+    ];
     $messenger = \Drupal::messenger();
     $messenger->addMessage(
       t("<strong>$institution_txt accounts</strong> must sign in using <strong>@auth_link</strong>.",
         [
           '@auth_link' => Link::fromTextAndUrl(
             t('Secure Services Login'),
-            Url::fromUri('base:/saml/login')
+            Url::fromUri('base:/saml/login', $options)
           )->toString(),
         ]
       ),
