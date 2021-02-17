@@ -56,7 +56,7 @@ function saml_features_form_user_login_form_alter(&$form, FormStateInterface $fo
         [
           '@auth_link' => Link::fromTextAndUrl(
             t('Secure Services Login'),
-            Url::fromUri('base:/saml/login', $options)
+            Url::fromUri('base:/login', $options)
           )->toString(),
         ]
       ),
@@ -86,12 +86,13 @@ function _saml_features_validate_final(array &$form, FormStateInterface $form_st
       $options = [
         'query' => \Drupal::request()->query->all(),
       ];
-      $errors['name'] = t("Unrecognized username or password.
-        Note $institution_txt accounts must sign in using <strong>@auth_link</strong>.",
+      $base_url = \Drupal::request()->getSchemeAndHttpHost();
+      $errors['name'] = t("Unrecognized username or password. Please try again later.<br>
+        <strong>$institution_txt accounts:</strong> please log in at @auth_link.",
         [
           '@auth_link' => Link::fromTextAndUrl(
-            t('Secure Services Login'),
-            Url::fromUri('base:/saml/login', $options)
+            $base_url . '/login',
+            Url::fromUri('base:/login', $options)
           )->toString(),
         ]
       );
