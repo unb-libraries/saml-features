@@ -38,7 +38,7 @@ class SettingsForm extends ConfigFormBase {
 
     $form['enable_user_profile_edit'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Enable <strong>user profile</strong> form <strong>email/password</strong> field editing for saml-authenticated users'),
+      '#title' => $this->t('Enable <strong>user profile</strong> form <strong>email/current password</strong> fields for saml-authenticated users'),
       '#default_value' => $config->get('enable_user_profile_edit'),
     ];
 

@@ -32,7 +32,6 @@ function saml_features_form_user_form_alter(&$form, FormStateInterface $form_sta
       // Disable editing of email/password fields.
       $form['account']['current_pass']['#disabled'] = TRUE;
       $form['account']['mail']['#disabled'] = TRUE;
-      $form['account']['pass']['#disabled'] = TRUE;
     }
   }
 }
