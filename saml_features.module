@@ -29,8 +29,7 @@ function saml_features_form_user_form_alter(&$form, FormStateInterface $form_sta
       $form['account']['saml_disable_note']['#weight'] = -50;
       $form['account']['saml_disable_note'][]['#markup'] = t("SAML-authenticated account detected: some fields may not be edited.");
 
-      // Disable editing of email/password fields.
-      $form['account']['current_pass']['#disabled'] = TRUE;
+      // Disable editing of email field.
       $form['account']['mail']['#disabled'] = TRUE;
     }
   }
