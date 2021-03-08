@@ -13,31 +13,6 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function saml_features_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Check Saml Feature > admin form settings for user profile editing toggled on.
-  $config = \Drupal::config('saml_features.adminsettings');
-  if (!$config->get('enable_user_profile_edit')) {
-    // Check if user previously authenticated via saml (source: samlauth.module).
-    $authmap = \Drupal::service('externalauth.authmap');
-    $account = \Drupal::currentUser();
-    $saml_id = $authmap->get($account->id(), 'samlauth');
-
-    if ($saml_id !== FALSE) {
-      // Add fieldset note at top of user profile form.
-      $form['account']['saml_disable_note']['#type'] = 'fieldset';
-      $form['account']['saml_disable_note']['#title'] = t('Note');
-      $form['account']['saml_disable_note']['#weight'] = -50;
-      $form['account']['saml_disable_note'][]['#markup'] = t("SAML-authenticated account detected: some fields may not be edited.");
-
-      // Disable editing of email field.
-      $form['account']['mail']['#disabled'] = TRUE;
-    }
-  }
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- */
 function saml_features_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   $site_name = \Drupal::config('system.site')->get('name');
   $config = \Drupal::config('saml_features.adminsettings');

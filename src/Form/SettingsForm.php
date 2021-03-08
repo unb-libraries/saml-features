@@ -36,12 +36,6 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('exclude_stu'),
     ];
 
-    $form['enable_user_profile_edit'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Enable <strong>user profile</strong> form <strong>email</strong> field for saml-authenticated users'),
-      '#default_value' => $config->get('enable_user_profile_edit'),
-    ];
-
     return parent::buildForm($form, $form_state);
   }
 
@@ -53,7 +47,6 @@ class SettingsForm extends ConfigFormBase {
 
     $this->config('saml_features.adminsettings')
       ->set('exclude_stu', $form_state->getValue('exclude_stu'))
-      ->set('enable_user_profile_edit', $form_state->getValue('enable_user_profile_edit'))
       ->save();
   }
 
