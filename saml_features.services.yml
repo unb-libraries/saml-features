@@ -1,0 +1,6 @@
+services:
+  saml_features.event_subscriber.user_sync:
+    class: Drupal\saml_features\EventSubscriber\UserFieldsEventSubscriber
+    arguments: ['@config.factory']
+    tags:
+      - { name: event_subscriber }
