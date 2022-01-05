@@ -53,13 +53,15 @@ class UserFieldsEventSubscriber implements EventSubscriberInterface {
     $attributes = $event->getAttributes();
     $mappings = $this->config->get('field_mappings');
 
-    foreach ($mappings as $mapping) {
-      if ($mapping['attribute_name'] == static::SAML_PHONE_ATTRIBUTE_NAME) {
-        $value = !empty($attributes[$mapping['attribute_name']][0]) ? $attributes[$mapping['attribute_name']][0] : NULL;
-        if (isset($value)) {
-          $value = preg_replace('/^1 (\d{3}) (\d{3}) (\d{4})$/', '($1) $2-$3', $value);
-          $account->set($mapping['field_name'], $value);
-          $event->markAccountChanged();
+    if ($mappings) {
+      foreach ($mappings as $mapping) {
+        if ($mapping['attribute_name'] == static::SAML_PHONE_ATTRIBUTE_NAME) {
+          $value = !empty($attributes[$mapping['attribute_name']][0]) ? $attributes[$mapping['attribute_name']][0] : NULL;
+          if (isset($value)) {
+            $value = preg_replace('/^1 (\d{3}) (\d{3}) (\d{4})$/', '($1) $2-$3', $value);
+            $account->set($mapping['field_name'], $value);
+            $event->markAccountChanged();
+          }
         }
       }
     }
