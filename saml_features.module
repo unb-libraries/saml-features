@@ -11,6 +11,17 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
+ * Implements hook_form_FORM_ID_alter() for the user edit form.
+ */
+function saml_features_form_user_form_alter(&$form, FormStateInterface $form_state) {
+  if (isset($form['account']['saml_notice'])) {
+    // Wrap samlauth module's notice in a proper block element.
+    $form['account']['saml_notice']['#prefix'] = '<div class="form-item">';
+    $form['account']['saml_notice']['#suffix'] = '</div>';
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function saml_features_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
