@@ -6,3 +6,4 @@ package: 'UNB Libraries'
 configure: saml_features.admin_settings_form
 dependencies:
   - samlauth:samlauth (>=8.x-3.8)
+  - user

@@ -36,6 +36,12 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('exclude_stu'),
     ];
 
+    $form['user_form_protect'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Prevent authenticated users from editing their profile'),
+      '#default_value' => $config->get('user_form_protect'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -47,6 +53,7 @@ class SettingsForm extends ConfigFormBase {
 
     $this->config('saml_features.adminsettings')
       ->set('exclude_stu', $form_state->getValue('exclude_stu'))
+      ->set('user_form_protect', $form_state->getValue('user_form_protect'))
       ->save();
   }
 
