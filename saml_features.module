@@ -99,6 +99,26 @@ function saml_features_form_user_login_form_alter(&$form, FormStateInterface $fo
 }
 
 /**
+ * Implements hook_menu_local_tasks_alter().
+ */
+function saml_features_menu_local_tasks_alter(&$data, $route_name, RefinableCacheableDependencyInterface &$cacheability) {
+  $applicable_routes = ['entity.user.canonical', 'entity.user.edit_form'];
+
+  if (in_array($route_name, $applicable_routes)) {
+    $user = Drupal::currentUser();
+    if (!$user->hasPermission('user protect exempt')) {
+      unset($data['tabs'][0]['entity.user.edit_form']);
+    }
+  }
+
+  // The tab we're adding is dependent on a user's access to add content.
+  $cacheability
+    ->addCacheContexts([
+      'user.permissions',
+    ]);
+}
+
+/**
  * Form validation callback.
  *
  * Alter text of error messages, removing request/reset password url references.
