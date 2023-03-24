@@ -5,15 +5,62 @@
  * Contains saml_features.module.
  */
 
+use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Implements hook_form_FORM_ID_alter() for the user edit form.
  */
 function saml_features_form_user_form_alter(&$form, FormStateInterface $form_state) {
+  $config = Drupal::config('saml_features.adminsettings');
+  $user = Drupal::currentUser();
+
+  $msg = Markup::Create(
+    'Directory Info metadata is maintained centrally, displayed on our
+    Staff Directory and should generally mirror UNB\'s Colleague-driven data.
+    <a href="https://lib.unb.ca/contact-unb-libraries-staff?recipient=pollockl">Contact Lisa Pollock</a>
+    if you encounter errors.'
+  );
+  Drupal::messenger()->addWarning($msg);
+
+  if (empty($config->get('user_form_protect')) || $user->hasPermission('user protect exempt')) {
+    // Abort form field edit restrictions (note root has user protect exempt permission).
+    return;
+  }
+
+  foreach (Element::children($form) as $key) {
+    switch ($key) {
+      case 'account':
+        if ($form_state->getFormObject()->getOperation() != 'register') {
+          // Disable username + password fields on Edit (but not Add) form.
+          $form[$key]['name']['#disabled'] = TRUE;
+          $form[$key]['pass']['#disabled'] = TRUE;
+          $form[$key]['current_pass']['#disabled'] = TRUE;
+        }
+        // Disable selected account fields.
+        if (!$user->hasPermission('edit any user details')) {
+          $form[$key]['mail']['#disabled'] = TRUE;
+        }
+        $form[$key]['notify']['#disabled'] = TRUE;
+        break;
+
+      case 'actions':
+        // Deny Cancel account link access.
+        $form[$key]['delete']['#access'] = FALSE;
+        break;
+
+      default:
+        // Disable Groups fields (LIB feature).
+        $form[$key]['#disabled'] = TRUE;
+        break;
+    }
+  }
+
   if (isset($form['account']['saml_notice'])) {
     // Wrap samlauth module's notice in a proper block element.
     $form['account']['saml_notice']['#prefix'] = '<div class="form-item">';
