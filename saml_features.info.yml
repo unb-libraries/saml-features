@@ -1,4 +1,4 @@
-name: 'UNB Libraries Saml'
+name: 'UNB Libraries Saml Extra Features'
 type: module
 description: 'Extra features re: UNB Libraries Saml authentication'
 core_version_requirement: ^9.2 || ^10

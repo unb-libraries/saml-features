@@ -11,7 +11,29 @@ use Drupal\Core\Url;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
 use Drupal\Core\Render\Markup;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+ * Implements hook_help().
+ */
+function saml_features_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the saml_features module.
+    case 'help.page.saml_features':
+      $output = "<h3>" . t('About') . "</h3>";
+      $output .= "<ul><li>" . t("Adds URL Alias <kbd>/login</kbd> to Saml Authentication's <b>saml_login</b> route");
+      $output .= "</li><li>" . t("Replaces Drupal core login form error message references with Saml-based versions");
+      $output .= "</li><li>" . t("Adds an alert to the Drupal core user login form that links to the Saml login route");
+      $output .= "</li><li>" . t("STU references in the login text may be toggled on/off");
+      $output .= "</li><li>" . t("Preventing users from editing user form field data may be toggled on/off ");
+      $output .= t("(while also providing an exemption permission)");
+      $output .= "</li><li>" . t("Toggle options may be configured in the module's <b>admin settings form</b> ");
+      $output .= t("(accessed via the <i>Configure</i> link)") . "</li></ul>";
+
+    default:
+  }
+}
 
 /**
  * Implements hook_form_FORM_ID_alter() for the user edit form.
