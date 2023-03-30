@@ -73,6 +73,8 @@ function saml_features_form_user_form_alter(&$form, FormStateInterface $form_sta
         break;
 
       case 'actions':
+        // Disable Submit (i.e. Save) button.
+        $form[$key]['submit']['#disabled'] = TRUE;
         // Deny Cancel account link access.
         $form[$key]['delete']['#access'] = FALSE;
         break;
