@@ -61,9 +61,9 @@ function saml_features_form_user_form_alter(&$form, FormStateInterface $form_sta
       case 'account':
         if ($form_state->getFormObject()->getOperation() != 'register') {
           // Disable username + password fields on Edit (but not Add) form.
-          $form[$key]['name']['#disabled'] = TRUE;
-          $form[$key]['pass']['#disabled'] = TRUE;
-          $form[$key]['current_pass']['#disabled'] = TRUE;
+          $form[$key]['name']['#access'] = FALSE;
+          $form[$key]['pass']['#access'] = FALSE;
+          $form[$key]['current_pass']['#access'] = FALSE;
         }
         // Disable selected account fields.
         if (!$user->hasPermission('edit any user details')) {
