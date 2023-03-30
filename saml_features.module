@@ -30,6 +30,7 @@ function saml_features_help($route_name, RouteMatchInterface $route_match) {
       $output .= t("(while also providing an exemption permission)");
       $output .= "</li><li>" . t("Toggle options may be configured in the module's <b>admin settings form</b> ");
       $output .= t("(accessed via the <i>Configure</i> link)") . "</li></ul>";
+      return $output;
 
     default:
   }
