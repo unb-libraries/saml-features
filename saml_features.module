@@ -43,13 +43,15 @@ function saml_features_form_user_form_alter(&$form, FormStateInterface $form_sta
   $config = Drupal::config('saml_features.adminsettings');
   $user = Drupal::currentUser();
 
-  $msg = Markup::Create(
-    'Directory Info metadata is maintained centrally, displayed on our
-    Staff Directory and should generally mirror UNB\'s Colleague-driven data.
-    <a href="https://lib.unb.ca/contact-unb-libraries-staff?recipient=pollockl">Contact Lisa Pollock</a>
-    if you encounter errors.'
-  );
-  Drupal::messenger()->addWarning($msg);
+  if (!empty($config->get('display_metadata_alert'))) {
+    $msg = Markup::Create(
+      'Directory Info metadata is maintained centrally, displayed on our
+      Staff Directory and should generally mirror UNB\'s Colleague-driven data.
+      <a href="https://lib.unb.ca/contact-unb-libraries-staff?recipient=pollockl">Contact Lisa Pollock</a>
+      if you encounter errors.'
+    );
+    Drupal::messenger()->addWarning($msg);
+  }
 
   if (empty($config->get('user_form_protect')) || $user->hasPermission('user protect exempt')) {
     // Abort form field edit restrictions (note root has user protect exempt permission).

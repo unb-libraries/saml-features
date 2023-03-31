@@ -42,6 +42,12 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('user_form_protect'),
     ];
 
+    $form['display_metadata_alert'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Display <b>Directory Info</b> alert on user profile'),
+      '#default_value' => $config->get('display_metadata_alert'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -54,6 +60,7 @@ class SettingsForm extends ConfigFormBase {
     $this->config('saml_features.adminsettings')
       ->set('exclude_stu', $form_state->getValue('exclude_stu'))
       ->set('user_form_protect', $form_state->getValue('user_form_protect'))
+      ->set('display_metadata_alert', $form_state->getValue('display_metadata_alert'))
       ->save();
   }
 
