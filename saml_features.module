@@ -56,6 +56,12 @@ function saml_features_form_user_form_alter(&$form, FormStateInterface $form_sta
   // Restrict Notify user of new account setting based on SAML Features admin config.
   if (!empty($form['account']) && empty($config->get('enable_user_email_notify'))) {
     $form['account']['notify']['#disabled'] = TRUE;
+    // Append label note.
+    $form['account']['notify']['#title'] = t('@original_label
+      <em>(disabled by site administrator via SAML Features)</em>', [
+        '@original_label' => $form['account']['notify']['#title']->__toString(),
+      ]
+    );
   }
 
   if (empty($config->get('user_form_protect')) || $user->hasPermission('user protect exempt')) {
