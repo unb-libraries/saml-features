@@ -42,6 +42,12 @@ class SettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('user_form_protect'),
     ];
 
+    $form['enable_user_email_notify'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Allow enabling the <b>User Email Notify</b> checkbox on new user account form'),
+      '#default_value' => $config->get('enable_user_email_notify'),
+    ];
+
     $form['display_metadata_alert'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Display <b>Directory Info</b> alert on user profile'),
@@ -60,6 +66,7 @@ class SettingsForm extends ConfigFormBase {
     $this->config('saml_features.adminsettings')
       ->set('exclude_stu', $form_state->getValue('exclude_stu'))
       ->set('user_form_protect', $form_state->getValue('user_form_protect'))
+      ->set('enable_user_email_notify', $form_state->getValue('enable_user_email_notify'))
       ->set('display_metadata_alert', $form_state->getValue('display_metadata_alert'))
       ->save();
   }

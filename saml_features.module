@@ -53,6 +53,11 @@ function saml_features_form_user_form_alter(&$form, FormStateInterface $form_sta
     Drupal::messenger()->addWarning($msg);
   }
 
+  // Restrict Notify user of new account setting based on SAML Features admin config.
+  if (!empty($form['account']) && empty($config->get('enable_user_email_notify'))) {
+    $form['account']['notify']['#disabled'] = TRUE;
+  }
+
   if (empty($config->get('user_form_protect')) || $user->hasPermission('user protect exempt')) {
     // Abort form field edit restrictions (note root has user protect exempt permission).
     return;
